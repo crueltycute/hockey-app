@@ -34,14 +34,13 @@ let playersData = [
  * @returns {Object}
  * */
 const createPlayer = function(playerData) {
-    let firstInlineEl = document.createElement('div');
-    firstInlineEl.classList.add('inline');
+    let firstDiv = document.createElement('div');
 
     let nameEl = document.createElement('div');
     nameEl.classList.add('player__name');
     nameEl.innerHTML = playerData.name;
 
-    firstInlineEl.appendChild(nameEl);
+    firstDiv.appendChild(nameEl);
 
     let sectionEl = document.createElement('div');
     sectionEl.classList.add('player__section');
@@ -49,7 +48,7 @@ const createPlayer = function(playerData) {
         sectionEl.innerHTML = playerData.section;
     }
 
-    firstInlineEl.appendChild(sectionEl);
+    firstDiv.appendChild(sectionEl);
 
     let positionEl = document.createElement('div');
     positionEl.classList.add('player__position');
@@ -57,22 +56,21 @@ const createPlayer = function(playerData) {
         positionEl.innerHTML = playerData.position;
     }
 
-    firstInlineEl.appendChild(positionEl);
+    firstDiv.appendChild(positionEl);
 
-    let secondInlineEl = document.createElement('div');
-    secondInlineEl.classList.add('inline');
+    let secondDiv = document.createElement('div');
 
     let numberEl = document.createElement('div');
     numberEl.classList.add('player__number');
     numberEl.innerHTML = playerData.number;
 
-    secondInlineEl.appendChild(numberEl);
+    secondDiv.appendChild(numberEl);
 
     let playerEl = document.createElement('div');
     playerEl.classList.add('player');
 
-    playerEl.appendChild(firstInlineEl);
-    playerEl.appendChild(secondInlineEl);
+    playerEl.appendChild(firstDiv);
+    playerEl.appendChild(secondDiv);
 
     return playerEl;
 };

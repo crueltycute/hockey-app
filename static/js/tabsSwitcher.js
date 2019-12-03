@@ -15,9 +15,9 @@ class Tab {
     updateVisibility() {
         this.visibility = !this.visibility;
         if (this.visibility) {
-            this.button.classList.add('tab__focused')
+            this.button.classList.add('tabs-name__focused')
         } else {
-            this.button.classList.remove('tab__focused');
+            this.button.classList.remove('tabs-name__focused');
         }
     }
 
@@ -36,9 +36,9 @@ class Tab {
     }
 }
 
-let playersTab = new Tab(document.getElementsByClassName('tab')[0],
+let playersTab = new Tab(document.getElementsByClassName('tabs-name')[0],
                         document.getElementById('tab-players'), true);
-let unitsTab = new Tab(document.getElementsByClassName('tab')[1],
+let unitsTab = new Tab(document.getElementsByClassName('tabs-name')[1],
                         document.getElementById('tab-units'), false);
 
 playersTab.button.addEventListener('click', () => {

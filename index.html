@@ -3,55 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Тренировка</title>
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/modalWindow.css">
+    <link rel="stylesheet" href="static/css/map.css">
+    <link rel="stylesheet" href="static/css/tabs.css">
 </head>
 <body>
-    <section class="modal-section hidden">
-        <div class="modal">
-            <div class="modal__name">
-                Выбранный игрок
-            </div>
-            <div class="modal__content">
+    <div class="modal-background hidden">
+        <div class="modal-window">
+            <h4>Выбранный игрок</h4>
+            <div class="modal-content">
                 <div class="player-name"></div>
             </div>
-            <div class="modal__name">
-                 Выберите секцию
-            </div>
-            <div class="modal__content">
+            <h4>Выберите секцию</h4>
+            <div class="modal-content">
                 <div class="sections">
                     <div class="sections__item">1</div>
                     <div class="sections__item">2</div>
                     <div class="sections__item">3</div>
                 </div>
             </div>
-            <div class="modal__name">
-                Выберите позицию
-            </div>
-            <div class="modal__content">
+            <h4>Выберите позицию</h4>
+            <div class="modal-content">
                 <div class="map">
-                    <div class="map__center_border">
-                        <div class="map__center"></div>
-                    </div>
+                    <div class="map__center"></div>
                     <div class="map__separator"></div>
-                    <div class="zones">
-                        <div class="zone">
-                            <div class="zone__center"></div>
-                        </div>
-                        <div class="zone">
-                            <div class="zone__center"></div>
-                        </div>
+                    <div>
+                        <div class="map__zone"></div>
+                        <div class="map__zone"></div>
                     </div>
-                    <div class="map__gate-zone"></div>
-                    <div class="map__separator map__separator_red"></div>
-                    <div class="map__gate"></div>
+                    <div class="map__gates-zone"></div>
+                    <div class="map__separator map__separator_gates"></div>
+                    <div class="map__gates"></div>
                 </div>
                 <div class="positions">
-                    <div class="row row_centered">
+                    <div class="positions-row positions-row_centered">
                         <div class="position" id="1">
                             <span class="position__name">?</span>
                         </div>
                     </div>
-                    <div class="row row_space-between">
+                    <div class="positions-row positions-row_space-between">
                         <div class="position" id="2">
                             <span class="position__name">?</span>
                         </div>
@@ -59,7 +49,7 @@
                             <span class="position__name">?</span>
                         </div>
                     </div>
-                    <div class="row row_space-evenly">
+                    <div class="positions-row positions-row_space-evenly">
                         <div class="position" id="4">
                             <span class="position__name">?</span>
                         </div>
@@ -69,157 +59,135 @@
                     </div>
                 </div>
             </div>
-            <div class="modal__button">Подтвердить</div>
+            <div class="modal-button">Подтвердить</div>
         </div>
-    </section>
+    </div>
     <header>
-        <div class="tabs">
-            <div class="tab tab__focused">Состав</div>
-            <div class="tab">Звенья</div>
+        <div class="tabs-names">
+            <div class="tabs-name tabs-name__focused">Состав</div>
+            <div class="tabs-name">Звенья</div>
         </div>
     </header>
     <section id="tab-players">
-        <div class="players">
-        </div>
+        <div class="players"></div>
     </section>
     <section id="tab-units" class="hidden">
         <div class="units">
             <div class="unit">
                 <div class="unit-name">Звено 1</div>
-                <div class="modal__content">
-                    <div class="map">
-                        <div class="map__center_border">
-                            <div class="map__center"></div>
-                        </div>
-                        <div class="map__separator"></div>
-                        <div class="zones">
-                            <div class="zone">
-                                <div class="zone__center"></div>
-                            </div>
-                            <div class="zone">
-                                <div class="zone__center"></div>
-                            </div>
-                        </div>
-                        <div class="map__gate-zone"></div>
-                        <div class="map__separator map__separator_red"></div>
-                        <div class="map__gate"></div>
+                <div class="map">
+                    <div class="map__center"></div>
+                    <div class="map__separator"></div>
+                    <div>
+                        <div class="map__zone"></div>
+                        <div class="map__zone"></div>
                     </div>
-                    <div class="positions">
-                        <div class="row row_centered">
-                            <div class="position">
-                                <span class="position__name">?</span>
-                            </div>
-                        </div>
-                        <div class="row row_space-between">
-                            <div class="position">
-                                <span class="position__name">?</span>
-                            </div>
-                            <div class="position">
-                                <span class="position__name">?</span>
-                            </div>
-                        </div>
-                        <div class="row row_space-evenly">
-                            <div class="position">
-                                <span class="position__name">?</span>
-                            </div>
-                            <div class="position">
-                                <span class="position__name">?</span>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="map__gates-zone"></div>
+                    <div class="map__separator map__separator_gates"></div>
+                    <div class="map__gates"></div>
                 </div>
             </div>
             <div class="unit">
                 <div class="unit-name">Звено 2</div>
-                <div class="modal__content">
-                    <div class="map">
-                        <div class="map__center_border">
-                            <div class="map__center"></div>
-                        </div>
-                        <div class="map__separator"></div>
-                        <div class="zones">
-                            <div class="zone">
-                                <div class="zone__center"></div>
-                            </div>
-                            <div class="zone">
-                                <div class="zone__center"></div>
-                            </div>
-                        </div>
-                        <div class="map__gate-zone"></div>
-                        <div class="map__separator map__separator_red"></div>
-                        <div class="map__gate"></div>
+                <div class="map">
+                    <div class="map__center"></div>
+                    <div class="map__separator"></div>
+                    <div>
+                        <div class="map__zone"></div>
+                        <div class="map__zone"></div>
                     </div>
-                    <div class="positions">
-                        <div class="row row_centered">
-                            <div class="position">
-                                <span class="position__name">?</span>
-                            </div>
-                        </div>
-                        <div class="row row_space-between">
-                            <div class="position">
-                                <span class="position__name">?</span>
-                            </div>
-                            <div class="position">
-                                <span class="position__name">?</span>
-                            </div>
-                        </div>
-                        <div class="row row_space-evenly">
-                            <div class="position">
-                                <span class="position__name">?</span>
-                            </div>
-                            <div class="position">
-                                <span class="position__name">?</span>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="map__gates-zone"></div>
+                    <div class="map__separator map__separator_gates"></div>
+                    <div class="map__gates"></div>
                 </div>
             </div>
             <div class="unit">
                 <div class="unit-name">Звено 3</div>
-                <div class="modal__content">
-                    <div class="map">
-                        <div class="map__center_border">
-                            <div class="map__center"></div>
-                        </div>
-                        <div class="map__separator"></div>
-                        <div class="zones">
-                            <div class="zone">
-                                <div class="zone__center"></div>
-                            </div>
-                            <div class="zone">
-                                <div class="zone__center"></div>
-                            </div>
-                        </div>
-                        <div class="map__gate-zone"></div>
-                        <div class="map__separator map__separator_red"></div>
-                        <div class="map__gate"></div>
+                <div class="map">
+                    <div class="map__center"></div>
+                    <div class="map__separator"></div>
+                    <div>
+                        <div class="map__zone"></div>
+                        <div class="map__zone"></div>
                     </div>
-                    <div class="positions">
-                        <div class="row row_centered">
-                            <div class="position">
-                                <span class="position__name">?</span>
-                            </div>
+                    <div class="map__gates-zone"></div>
+                    <div class="map__separator map__separator_gates"></div>
+                    <div class="map__gates"></div>
+                </div>
+            </div>
+            <div class="units units_absolute">
+                <div class="positions positions_relative">
+                    <div class="positions-row positions-row_centered">
+                        <div class="position">
+                            <span class="position__name">?</span>
                         </div>
-                        <div class="row row_space-between">
-                            <div class="position">
-                                <span class="position__name">?</span>
-                            </div>
-                            <div class="position">
-                                <span class="position__name">?</span>
-                            </div>
+                    </div>
+                    <div class="positions-row positions-row_space-between">
+                        <div class="position">
+                            <span class="position__name">?</span>
                         </div>
-                        <div class="row row_space-evenly">
-                            <div class="position">
-                                <span class="position__name">?</span>
-                            </div>
-                            <div class="position">
-                                <span class="position__name">?</span>
-                            </div>
+                        <div class="position">
+                            <span class="position__name">?</span>
+                        </div>
+                    </div>
+                    <div class="positions-row positions-row_space-evenly">
+                        <div class="position">
+                            <span class="position__name">?</span>
+                        </div>
+                        <div class="position">
+                            <span class="position__name">?</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="positions positions_relative">
+                    <div class="positions-row positions-row_centered">
+                        <div class="position">
+                            <span class="position__name">?</span>
+                        </div>
+                    </div>
+                    <div class="positions-row positions-row_space-between">
+                        <div class="position">
+                            <span class="position__name">?</span>
+                        </div>
+                        <div class="position">
+                            <span class="position__name">?</span>
+                        </div>
+                    </div>
+                    <div class="positions-row positions-row_space-evenly">
+                        <div class="position">
+                            <span class="position__name">?</span>
+                        </div>
+                        <div class="position">
+                            <span class="position__name">?</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="positions positions_relative">
+                    <div class="positions-row positions-row_centered">
+                        <div class="position">
+                            <span class="position__name">?</span>
+                        </div>
+                    </div>
+                    <div class="positions-row positions-row_space-between">
+                        <div class="position">
+                            <span class="position__name">?</span>
+                        </div>
+                        <div class="position">
+                            <span class="position__name">?</span>
+                        </div>
+                    </div>
+                    <div class="positions-row positions-row_space-evenly">
+                        <div class="position">
+                            <span class="position__name">?</span>
+                        </div>
+                        <div class="position">
+                            <span class="position__name">?</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </section>
     <script src="static/js/players.js"></script>
     <script src="static/js/tabsSwitcher.js"></script>

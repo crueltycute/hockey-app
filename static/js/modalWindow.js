@@ -80,7 +80,7 @@ function modalWindow(modal) {
         });
     }
 
-    const submitButton = document.getElementsByClassName('modal__button')[0];
+    const submitButton = document.getElementsByClassName('modal-button')[0];
 
     /* Обработка нажатия на кнопку "Подтвердить" в модалке,
      * занесение данных из модалки в поле игрока,
@@ -128,4 +128,4 @@ function modalWindow(modal) {
     });
 }
 
-modalWindow(document.getElementsByClassName('modal-section')[0]);
+modalWindow(document.getElementsByClassName('modal-background')[0]);
