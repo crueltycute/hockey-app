@@ -17,14 +17,14 @@ header {
 }
 
 .tabs {
+    display: flex;
+
     margin-top: 36px;
 
     border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .tab {
-    display: inline-block;
-
     padding: 8px 20px;
 
     cursor: pointer;
@@ -59,6 +59,10 @@ section {
     border-top: 1px solid rgba(255, 255, 255, 0.5);
 
     cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .players .player:last-child {
@@ -72,6 +76,8 @@ section {
 
 .modal__content {
     width: 100%;
+
+    color: white;
 
     display: flex;
     justify-content: center;
@@ -335,4 +341,36 @@ section {
 
 .hidden {
     display: none;
+}
+
+.units {
+    margin-top: 16px;
+
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+    max-width: 60%;
+}
+
+.unit {
+    height: fit-content;
+    margin: 16px 32px;
+}
+
+.unit-name {
+    margin: 16px 0;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.player__number {
+    margin-left: 32px;
+}
+
+.player__name {
+    max-width: 600px;
+    overflow: hidden;
 }

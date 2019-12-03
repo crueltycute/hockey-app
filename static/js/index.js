@@ -3,7 +3,7 @@ let tabButtons = document.getElementsByClassName('tab');
 let playersTab = {
     "button": tabButtons[0],
     "section": document.getElementById('tab-players'),
-    "visible": false,
+    "visible": true,
     "updateVisibility": function () {
         this.visible = !this.visible;
 
@@ -26,7 +26,7 @@ let playersTab = {
 let unitsTab = {
     "button": tabButtons[1],
     "section": document.getElementById('tab-units'),
-    "visible": true,
+    "visible": false,
     "updateVisibility": function () {
         this.visible = !this.visible;
 
