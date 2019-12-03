@@ -34,10 +34,13 @@ for (let i = 0; i < players.length; i++) {
             /* В currentModalWindowData получаем данные игрока, на которого кликнули */
             currentModalWindowData.index = i;
             currentModalWindowData.name = players[i].getElementsByClassName('player__name')[0].innerText;
-            currentModalWindowData.number = +players[i].getElementsByClassName('player__number')[0].innerText;
+            currentModalWindowData.number = players[i].getElementsByClassName('player__number')[0].innerText;
+
+            console.log(typeof currentModalWindowData.name);
+            console.log(typeof currentModalWindowData.number);
 
             document.getElementsByClassName('player-name')[0].innerHTML = currentModalWindowData.name +
-                                                                     + ', номер ' + currentModalWindowData.number;
+                                                                        ', номер ' + currentModalWindowData.number;
 
             modal.classList.remove('hidden');
             modalVisible = !modalVisible;
