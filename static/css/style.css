@@ -175,6 +175,10 @@ section {
     background-color: darkgray;
 }
 
+.sections__item_selected {
+    background-color: darkgray;
+}
+
 .map {
     background-color: #f5f5f5;
 
@@ -321,17 +325,20 @@ section {
     background-color: grey;
 }
 
+.position_selected {
+    background-color: grey;
+}
+
 .row_centered {
     justify-content: center;
 }
 
 .row_space-between {
-    margin-top: -20px;
     justify-content: space-around;
 }
 
 .row_space-evenly {
-    margin-top: 36px;
+    margin-top: 20px;
     justify-content: space-evenly;
 }
 

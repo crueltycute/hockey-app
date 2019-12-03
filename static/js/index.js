@@ -4,12 +4,12 @@ let playersData = [
     {   'name': 'Алексей Климкин',
         'section': '',
         'position': '',
-        'number': 1,
+        'number': 13,
     },
     {   'name': 'Павел Башаринов',
         'section': '',
         'position': '',
-        'number': 2,
+        'number': 21,
     },
     {   'name': 'Андрей Гардт',
         'section': '',
@@ -19,12 +19,12 @@ let playersData = [
     {   'name': 'Александр Горячев',
         'section': '',
         'position': '',
-        'number': 4,
+        'number': 24,
     },
     {   'name': 'Алексей Захаров',
         'section': '',
         'position': '',
-        'number': 5,
+        'number': 15,
     },
 ];
 
@@ -39,21 +39,23 @@ playersData.forEach(el => {
 
     firstInlineEl.appendChild(nameEl);
 
-    if (el.section) {
-        let sectionEl = document.createElement('div');
-        sectionEl.classList.add('player__section');
-        sectionEl.innerHTML = el.section;
+    let sectionEl = document.createElement('div');
+    sectionEl.classList.add('player__section');
 
-        firstInlineEl.appendChild(sectionEl);
+    if (el.section) {
+        sectionEl.innerHTML = el.section;
     }
+
+    firstInlineEl.appendChild(sectionEl);
+
+    let positionEl = document.createElement('div');
+    positionEl.classList.add('player__position');
 
     if (el.position) {
-        let positionEl = document.createElement('div');
-        positionEl.classList.add('player__position');
         positionEl.innerHTML = el.position;
-
-        firstInlineEl.appendChild(positionEl);
     }
+
+    firstInlineEl.appendChild(positionEl);
 
     let secondInlineEl = document.createElement('div');
     secondInlineEl.classList.add('inline');
@@ -143,20 +145,119 @@ modal.addEventListener('click', (event) => {
     }
 });
 
-/* modal window */
+/* modal */
+
+let currentModalWindowData = {
+    "index": null,
+    "name": null,
+    "section": null,
+    "position": null,
+    "number": null,
+    "isValid": function () {
+        return this.position || this.section;
+    },
+    "eraseData": function () {
+        this.index = null;
+        this.name = null;
+        this.section = null;
+        this.position = null;
+        this.number = null;
+    }
+
+};
+
+/* player into modal */
 
 let players = document.getElementsByClassName('player');
 
 let playerNameEl = document.getElementsByClassName('player-name')[0];
 
-for (let p of players) {
-    p.addEventListener('click', () => {
+for (let i = 0; i < players.length; i++) {
+    players[i].addEventListener('click', () => {
         if (!modalVisible) {
-            playerNameEl.innerHTML = p.getElementsByClassName('player__name')[0].innerText
-                + ', номер ' + p.getElementsByClassName('player__number')[0].innerText;
+            currentModalWindowData.index = i;
+            currentModalWindowData.name = players[i].getElementsByClassName('player__name')[0].innerText;
+            currentModalWindowData.number = +players[i].getElementsByClassName('player__number')[0].innerText;
+
+            playerNameEl.innerHTML = currentModalWindowData.name + ', номер ' + currentModalWindowData.number;
+
             modal.classList.remove('hidden');
             modalVisible = !modalVisible;
         }
     });
 }
 
+/* getting data from modal window */
+
+let sectionNumbers = document.getElementsByClassName('sections__item');
+
+for (let num of sectionNumbers) {
+    num.addEventListener('click', () => {
+        if (currentModalWindowData.section !== num.innerText) {
+            if (currentModalWindowData.section !== null) {
+                sectionNumbers[currentModalWindowData.section - 1].classList.remove('sections__item_selected');
+            }
+            currentModalWindowData.section = num.innerText;
+            num.classList.add('sections__item_selected');
+        }
+    });
+}
+
+let sectionPositions = document.getElementsByClassName('position');
+
+for (let pos of sectionPositions) {
+    pos.addEventListener('click', () => {
+        if (currentModalWindowData.position !== +pos.id) {
+            if (currentModalWindowData.position === null) {
+                currentModalWindowData.position = +pos.id;
+            }
+            if (currentModalWindowData.position !== null) {
+                sectionPositions[currentModalWindowData.position - 1].classList.remove('position_selected');
+            }
+            currentModalWindowData.position = +pos.id;
+
+            pos.innerHTML = currentModalWindowData.number;
+            pos.classList.add('position_selected');
+        }
+    });
+}
+
+const submitButton = document.getElementsByClassName('modal__button')[0];
+submitButton.addEventListener('click', () => {
+    if (currentModalWindowData.section) {
+        let sectionToInsert = players[currentModalWindowData.index].getElementsByClassName('player__section')[0];
+        sectionToInsert.innerHTML = 'Секция ' + currentModalWindowData.section;
+
+        sectionNumbers[currentModalWindowData.section - 1].classList.remove('sections__item_selected');
+    }
+
+    if (currentModalWindowData.position) {
+        let positionToInsert = players[currentModalWindowData.index].getElementsByClassName('player__position')[0];
+        switch (currentModalWindowData.position) {
+            case 1:
+                positionToInsert.innerHTML = 'нападающий по центру';
+                break;
+            case 2:
+                positionToInsert.innerHTML = 'нападающий слева';
+                break;
+            case 3:
+                positionToInsert.innerHTML = 'нападающий справа';
+                break;
+            case 4:
+                positionToInsert.innerHTML = 'защитник слева';
+                break;
+            case 5:
+                positionToInsert.innerHTML = 'нападающий справа';
+                break;
+        }
+
+        sectionPositions[currentModalWindowData.position - 1].classList.remove('position_selected');
+    }
+
+    currentModalWindowData.eraseData();
+});
+
+submitButton.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    modalVisible = false;
+});
