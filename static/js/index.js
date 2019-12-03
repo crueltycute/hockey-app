@@ -1,27 +1,29 @@
+/* hardcoded players */
+
 let playersData = [
     {   'name': 'Алексей Климкин',
-        'section': 'Секция 1',
-        'position': 'защитник слева',
+        'section': '',
+        'position': '',
         'number': 1,
     },
     {   'name': 'Павел Башаринов',
-        'section': 'Секция 1',
-        'position': 'защитник справа',
+        'section': '',
+        'position': '',
         'number': 2,
     },
     {   'name': 'Андрей Гардт',
-        'section': 'Секция 1',
-        'position': 'защитник слева',
+        'section': '',
+        'position': '',
         'number': 3,
     },
     {   'name': 'Александр Горячев',
-        'section': 'Секция 2',
-        'position': 'защитник слева',
+        'section': '',
+        'position': '',
         'number': 4,
     },
     {   'name': 'Алексей Захаров',
-        'section': 'Секция 3',
-        'position': 'защитник слева',
+        'section': '',
+        'position': '',
         'number': 5,
     },
 ];
@@ -70,6 +72,8 @@ playersData.forEach(el => {
 
     parentsBlock.appendChild(playerEl);
 });
+
+/* tabs switcher */
 
 let tabButtons = document.getElementsByClassName('tab');
 
@@ -139,13 +143,20 @@ modal.addEventListener('click', (event) => {
     }
 });
 
+/* modal window */
+
 let players = document.getElementsByClassName('player');
 
+let playerNameEl = document.getElementsByClassName('player-name')[0];
+
 for (let p of players) {
-    p.addEventListener('click', el => {
+    p.addEventListener('click', () => {
         if (!modalVisible) {
+            playerNameEl.innerHTML = p.getElementsByClassName('player__name')[0].innerText
+                + ', номер ' + p.getElementsByClassName('player__number')[0].innerText;
             modal.classList.remove('hidden');
             modalVisible = !modalVisible;
         }
     });
 }
+

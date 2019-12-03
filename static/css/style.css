@@ -374,3 +374,8 @@ section {
     max-width: 600px;
     overflow: hidden;
 }
+
+.player-name {
+    color: grey;
+    margin-bottom: 32px;
+}
