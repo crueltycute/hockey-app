@@ -14,7 +14,11 @@ class Tab {
 
     updateVisibility() {
         this.visibility = !this.visibility;
-        this.visibility ? this.button.classList.add('tab__focused') : this.button.classList.remove('tab__focused');
+        if (this.visibility) {
+            this.button.classList.add('tab__focused')
+        } else {
+            this.button.classList.remove('tab__focused');
+        }
     }
 
     show() {
