@@ -30,6 +30,11 @@ header {
     cursor: pointer;
 }
 
+.tab__focused {
+    background-color: white;
+    color: midnightblue;
+}
+
 .tab:hover {
     background-color: white;
     color: midnightblue;
@@ -37,7 +42,7 @@ header {
 
 /*///////////////////*/
 
-main {
+section {
     display: flex;
     justify-content: center;
 
