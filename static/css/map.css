@@ -162,13 +162,17 @@
 
     border-radius: 24px;
 
-    cursor: pointer;
+    cursor: default;
 
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-    .position_selected, .position:hover {
+    .position_modal {
+        cursor: pointer;
+    }
+
+    .position_selected, .position_modal:hover {
         background-color: grey;
     }

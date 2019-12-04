@@ -61,7 +61,7 @@ function modalWindow(modal) {
     }
 
     /* Обработка нажатия на кнопки позиций и занесение последней кликнутой в currentModalWindowData */
-    let sectionPositions = document.getElementsByClassName('position');
+    let sectionPositions = document.getElementsByClassName('position_modal');
 
     for (let pos of sectionPositions) {
         pos.addEventListener('click', () => {
