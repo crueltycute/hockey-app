@@ -11,12 +11,12 @@ function modalWindow(modal) {
 
     /* Объект с текущими данными об игроке для открытой модалки */
     let currentModalWindowData = {
-        "index": null,
-        "name": null,
-        "section": null,
-        "position": null,
-        "number": null,
-        "eraseData": function () {
+        index: null,
+        name: null,
+        section: null,
+        position: null,
+        number: null,
+        eraseData: function () {
             this.index = null;
             this.name = null;
             this.section = null;
@@ -65,14 +65,15 @@ function modalWindow(modal) {
 
     for (let pos of sectionPositions) {
         pos.addEventListener('click', () => {
-            if (currentModalWindowData.position !== +pos.id) {
+            let posNumber = +pos.id.slice(-1);
+            if (currentModalWindowData.position !== posNumber) {
                 if (currentModalWindowData.position === null) {
-                    currentModalWindowData.position = +pos.id;
+                    currentModalWindowData.position = posNumber;
                 }
                 if (currentModalWindowData.position !== null) {
                     sectionPositions[currentModalWindowData.position - 1].classList.remove('position_selected');
                 }
-                currentModalWindowData.position = +pos.id;
+                currentModalWindowData.position = posNumber;
 
                 pos.innerHTML = currentModalWindowData.number;
                 pos.classList.add('position_selected');
@@ -90,7 +91,7 @@ function modalWindow(modal) {
             let sectionToInsert = players[currentModalWindowData.index]
                 .getElementsByClassName('player__section')[0];
 
-            sectionToInsert.innerHTML = 'Секция ' + currentModalWindowData.section;
+            sectionToInsert.innerHTML = 'Звено ' + currentModalWindowData.section;
 
             sectionNumbers[currentModalWindowData.section - 1].classList.remove('sections__item_selected');
         }
@@ -116,6 +117,16 @@ function modalWindow(modal) {
             }
 
             sectionPositions[currentModalWindowData.position - 1].classList.remove('position_selected');
+        }
+
+        /* Добавление в секцию на другой вкладке */
+        if (currentModalWindowData.section && currentModalWindowData.position) {
+            let sectionToInsert = document.getElementById('unit-' + currentModalWindowData.section);
+            let positionToInsert = sectionToInsert
+                .getElementsByClassName('position')[currentModalWindowData.position - 1];
+
+            positionToInsert.getElementsByClassName('position__name')[0].innerHTML =
+                currentModalWindowData.number;
         }
 
         currentModalWindowData.eraseData();
