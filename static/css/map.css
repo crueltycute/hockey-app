@@ -179,4 +179,9 @@
 
     .position_occupied {
         background-color: darkslateblue;
+        cursor: default;
     }
+
+        .position_occupied:hover {
+            background-color: darkslateblue;
+        }

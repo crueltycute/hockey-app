@@ -27,12 +27,18 @@ class Player {
     setSection(section) {
         if (this.section !== section) {
             this.section = section;
+
+            this.playerBlock.getElementsByClassName('player__section')[0].innerHTML =
+                'Звено ' + section;
         }
     }
 
     setPosition(position) {
-        if (this.section !== position) {
+        if (this.position !== position) {
             this.position = position;
+
+            this.playerBlock.getElementsByClassName('player__position')[0].innerHTML =
+                positions[position].name;
         }
     }
 
@@ -123,7 +129,7 @@ let currentModalWindowData = {
 /* Закрытие модалки по нажатию вне модального окна */
 (function hideModal() {
     modalWindow.modalBlock.addEventListener('click', (event) => {
-        if (event.target === modalWindow.modalBlock && modalVisible) {
+        if (event.target === modalWindow.modalBlock && modalWindow.isVisible) {
             modalWindow.updateVisibility();
         }
     });
@@ -155,7 +161,8 @@ let currentModalWindowData = {
     for (let position of positionButtonCollection) {
         position.addEventListener('click', () => {
             const positionNumber = +position.id.slice(-1);
-            if (currentModalWindowData.position !== positionNumber) {
+
+            if (currentModalWindowData.position !== positionNumber && !positions[positionNumber - 1].isOccupied) {
                 if (currentModalWindowData.position) {
                     positionButtonCollection[currentModalWindowData.position - 1].classList.remove('position_selected');
                 }
@@ -175,27 +182,26 @@ let currentModalWindowData = {
 
     submitButton.addEventListener('click', () => {
         if (currentModalWindowData.position) {
-            /* Добавление данных в блок игрока */
-            console.log(currentModalWindowData.number);
-            let sectionToInsert = playersMap.get(currentModalWindowData.number).playerBlock
-                .getElementsByClassName('player__section')[0];
-            sectionToInsert.innerHTML = 'Звено ' + currentModalWindowData.section;
+            if (!positions[currentModalWindowData.position - 1].isOccupied) {
+                /* Добавление данных в блок игрока */
+                playersMap.get(currentModalWindowData.number).setSection(currentModalWindowData.section);
+                playersMap.get(currentModalWindowData.number).setPosition(currentModalWindowData.position - 1);
 
-            let positionToInsert = playersMap.get(currentModalWindowData.number).playerBlock
-                .getElementsByClassName('player__position')[0];
-            positionToInsert.innerHTML = positions[currentModalWindowData.position - 1].name;
+                positions[currentModalWindowData.position - 1].isOccupied = true;
 
-            /* Убираем подсветку текущей позиции */
-            positionButtonCollection[currentModalWindowData.position - 1].classList.remove('position_selected');
+                /* Убираем подсветку текущей позиции и помечаем ее как занятую */
+                positionButtonCollection[currentModalWindowData.position - 1].classList.remove('position_selected');
+                positionButtonCollection[currentModalWindowData.position - 1].classList.add('position_occupied');
 
-            /* Добавление в секцию на другой вкладке */
-            let otherTabSection = document.getElementById('unit-' + currentModalWindowData.section);
-            let otherTabPosition = otherTabSection
-                .getElementsByClassName('position')[currentModalWindowData.position - 1];
+                /* Добавление в секцию на другой вкладке */
+                let otherTabSection = document.getElementById('unit-' + currentModalWindowData.section);
+                let otherTabPosition = otherTabSection
+                    .getElementsByClassName('position')[currentModalWindowData.position - 1];
 
-            otherTabPosition.classList.add('position_occupied');
-            otherTabPosition.getElementsByClassName('position__name')[0].innerHTML =
-                currentModalWindowData.number;
+                otherTabPosition.classList.add('position_occupied');
+                otherTabPosition.getElementsByClassName('position__name')[0].innerHTML =
+                    currentModalWindowData.number;
+            }
         }
 
         currentModalWindowData.eraseData();
