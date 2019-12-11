@@ -62,6 +62,10 @@ section {
     justify-content: space-between;
 }
 
+    .player_busy {
+        cursor: default;
+    }
+
     .player:last-child {
         border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     }

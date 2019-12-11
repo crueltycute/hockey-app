@@ -1,19 +1,14 @@
 /* Массив позиций на поле */
-let positions = [
-    { isOccupied: false, name: 'нападающий по центру' },
-    { isOccupied: false, name: 'нападающий слева' },
-    { isOccupied: false, name: 'нападающий справа' },
-    { isOccupied: false, name: 'защитник слева' },
-    { isOccupied: false, name: 'защитник справа' }
-];
+let positions = {
+    1: { isOccupied: false, name: 'нападающий по центру' },
+    2: { isOccupied: false, name: 'нападающий слева' },
+    3: { isOccupied: false, name: 'нападающий справа' },
+    4: { isOccupied: false, name: 'защитник слева' },
+    5: { isOccupied: false, name: 'защитник справа' }
+};
 
 /**
  * Класс игрока
- *
- * name - имя
- * number - номер
- * section - текущая секция (по умолчанию 1)
- * position - текущая позиция на поле
  **/
 class Player {
     constructor(name, number, section=1, position='') {
@@ -21,6 +16,7 @@ class Player {
         this.number = number;
         this.section = section;
         this.position = position;
+        this.isOnField = false;
         this.playerBlock = this.createPlayerBlock();
     }
 
@@ -36,6 +32,8 @@ class Player {
     setPosition(position) {
         if (this.position !== position) {
             this.position = position;
+
+            this.isOnField = true;
 
             this.playerBlock.getElementsByClassName('player__position')[0].innerHTML =
                 positions[position].name;
@@ -59,7 +57,7 @@ class Player {
         let position = document.createElement('div');
         position.classList.add('player__position');
         if (this.position) {
-            position.innerHTML = positions[this.position - 1].name;
+            position.innerHTML = positions[this.position].name;
         }
 
         nameSectionAndPosition.append(name, section, position);
@@ -126,11 +124,19 @@ let currentModalWindowData = {
     }
 };
 
+
+const positionButtonCollection = document.getElementsByClassName('position_modal');
+
 /* Закрытие модалки по нажатию вне модального окна */
 (function hideModal() {
     modalWindow.modalBlock.addEventListener('click', (event) => {
         if (event.target === modalWindow.modalBlock && modalWindow.isVisible) {
             modalWindow.updateVisibility();
+            if (currentModalWindowData.position) {
+                positionButtonCollection[currentModalWindowData.position - 1].classList.remove('position_selected');
+                positionButtonCollection[currentModalWindowData.position - 1].innerHTML = '?';
+            }
+            currentModalWindowData.eraseData();
         }
     });
 })();
@@ -139,15 +145,17 @@ let currentModalWindowData = {
 (function initModal() {
     for (let [key, value] of playersMap) {
         value.playerBlock.addEventListener('click', () => {
-            if (!modalWindow.isVisible) {
-                /* В currentModalWindowData получаем данные игрока, на которого кликнули */
-                currentModalWindowData.name = value.name;
-                currentModalWindowData.number = key;
+            if (!value.position) {
+                if (!modalWindow.isVisible) {
+                    /* В currentModalWindowData получаем данные игрока, на которого кликнули */
+                    currentModalWindowData.name = value.name;
+                    currentModalWindowData.number = key;
 
-                document.getElementsByClassName('player-name')[0].innerHTML = currentModalWindowData.name +
-                    ', номер ' + currentModalWindowData.number;
+                    document.getElementsByClassName('player-name')[0].innerHTML = currentModalWindowData.name +
+                        ', номер ' + currentModalWindowData.number;
 
-                modalWindow.updateVisibility();
+                    modalWindow.updateVisibility();
+                }
             }
         });
     }
@@ -156,15 +164,15 @@ let currentModalWindowData = {
 /* Добавление обработчиков в модалку */
 (function initModalListeners() {
     /* Обработка нажатия на кнопки позиций и занесение последней кликнутой в currentModalWindowData */
-    const positionButtonCollection = document.getElementsByClassName('position_modal');
 
     for (let position of positionButtonCollection) {
         position.addEventListener('click', () => {
             const positionNumber = +position.id.slice(-1);
 
-            if (currentModalWindowData.position !== positionNumber && !positions[positionNumber - 1].isOccupied) {
+            if (currentModalWindowData.position !== positionNumber && !positions[positionNumber].isOccupied) {
                 if (currentModalWindowData.position) {
                     positionButtonCollection[currentModalWindowData.position - 1].classList.remove('position_selected');
+                    positionButtonCollection[currentModalWindowData.position - 1].innerHTML = '?';
                 }
 
                 currentModalWindowData.position = positionNumber;
@@ -182,12 +190,15 @@ let currentModalWindowData = {
 
     submitButton.addEventListener('click', () => {
         if (currentModalWindowData.position) {
-            if (!positions[currentModalWindowData.position - 1].isOccupied) {
+            if (!positions[currentModalWindowData.position].isOccupied &&
+                !playersMap.get(currentModalWindowData.number).isOnField) {
+
                 /* Добавление данных в блок игрока */
                 playersMap.get(currentModalWindowData.number).setSection(currentModalWindowData.section);
-                playersMap.get(currentModalWindowData.number).setPosition(currentModalWindowData.position - 1);
+                playersMap.get(currentModalWindowData.number).setPosition(currentModalWindowData.position);
+                playersMap.get(currentModalWindowData.number).playerBlock.classList.add('player_busy');
 
-                positions[currentModalWindowData.position - 1].isOccupied = true;
+                positions[currentModalWindowData.position].isOccupied = true;
 
                 /* Убираем подсветку текущей позиции и помечаем ее как занятую */
                 positionButtonCollection[currentModalWindowData.position - 1].classList.remove('position_selected');
@@ -204,6 +215,7 @@ let currentModalWindowData = {
             }
         }
 
+        console.log(playersMap.get(currentModalWindowData.number));
         currentModalWindowData.eraseData();
     });
 
