@@ -32,7 +32,18 @@ header {
     padding: 8px 20px;
 
     cursor: pointer;
+
+    font-size: 1em;
+
+    border: none;
+
+    color: white;
+    background: midnightblue;
 }
+
+    .tabs-name:focus {
+        outline: none;
+    }
 
     .tabs-name__focused, .tabs-name:hover {
         background-color: white;
@@ -61,6 +72,10 @@ section {
     align-items: center;
     justify-content: space-between;
 }
+
+    .player_busy {
+        cursor: default;
+    }
 
     .player:last-child {
         border-bottom: 1px solid rgba(255, 255, 255, 0.5);
