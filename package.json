@@ -1,17 +1,15 @@
 {
   "name": "hockey-app",
   "version": "1.0.0",
-  "description": "В хоккей играет в команде 3 пятерки: 2 защитника и 3 нападающих. Нужно сделать 1 страницу с 2 табами: 1. Список игроков (для простоты давай их всего 5, одна пятерка) 2. Отображение распределения игроков по пятерке",
+  "description": "Расстановка игроков хоккейной команды",
   "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/crueltycute/hockey-app.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "crueltycute",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/crueltycute/hockey-app/issues"

@@ -125,6 +125,7 @@ function modalWindow(modal) {
             let positionToInsert = sectionToInsert
                 .getElementsByClassName('position')[currentModalWindowData.position - 1];
 
+            positionToInsert.classList.add('position_occupied');
             positionToInsert.getElementsByClassName('position__name')[0].innerHTML =
                 currentModalWindowData.number;
         }

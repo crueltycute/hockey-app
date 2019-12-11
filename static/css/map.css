@@ -174,5 +174,9 @@
     }
 
     .position_selected, .position_modal:hover {
-        background-color: grey;
+        background-color: darkgray;
+    }
+
+    .position_occupied {
+        background-color: darkslateblue;
     }
