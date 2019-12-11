@@ -13,13 +13,12 @@ function modalWindow(modal) {
     let currentModalWindowData = {
         index: null,
         name: null,
-        section: null,
+        section: 1,
         position: null,
         number: null,
         eraseData: function () {
             this.index = null;
             this.name = null;
-            this.section = null;
             this.position = null;
             this.number = null;
         }
@@ -41,21 +40,6 @@ function modalWindow(modal) {
 
                 modal.classList.remove('hidden');
                 modalVisible = !modalVisible;
-            }
-        });
-    }
-
-    /* Обработка нажатия на кнопки секций и занесение последней кликнутой в currentModalWindowData */
-    let sectionNumbers = document.getElementsByClassName('sections__item');
-
-    for (let num of sectionNumbers) {
-        num.addEventListener('click', () => {
-            if (currentModalWindowData.section !== num.innerText) {
-                if (currentModalWindowData.section !== null) {
-                    sectionNumbers[currentModalWindowData.section - 1].classList.remove('sections__item_selected');
-                }
-                currentModalWindowData.section = num.innerText;
-                num.classList.add('sections__item_selected');
             }
         });
     }
@@ -87,16 +71,12 @@ function modalWindow(modal) {
      * занесение данных из модалки в поле игрока,
      * очистка currentModalWindowData */
     submitButton.addEventListener('click', () => {
-        if (currentModalWindowData.section) {
+        if (currentModalWindowData.position) {
             let sectionToInsert = players[currentModalWindowData.index]
                 .getElementsByClassName('player__section')[0];
 
             sectionToInsert.innerHTML = 'Звено ' + currentModalWindowData.section;
 
-            sectionNumbers[currentModalWindowData.section - 1].classList.remove('sections__item_selected');
-        }
-
-        if (currentModalWindowData.position) {
             let positionToInsert = players[currentModalWindowData.index].getElementsByClassName('player__position')[0];
             switch (currentModalWindowData.position) {
                 case 1:
@@ -117,16 +97,14 @@ function modalWindow(modal) {
             }
 
             sectionPositions[currentModalWindowData.position - 1].classList.remove('position_selected');
-        }
 
-        /* Добавление в секцию на другой вкладке */
-        if (currentModalWindowData.section && currentModalWindowData.position) {
-            let sectionToInsert = document.getElementById('unit-' + currentModalWindowData.section);
-            let positionToInsert = sectionToInsert
+            /* Добавление в секцию на другой вкладке */
+            let otherTabSection = document.getElementById('unit-' + currentModalWindowData.section);
+            let otherTabPosition = otherTabSection
                 .getElementsByClassName('position')[currentModalWindowData.position - 1];
 
-            positionToInsert.classList.add('position_occupied');
-            positionToInsert.getElementsByClassName('position__name')[0].innerHTML =
+            otherTabPosition.classList.add('position_occupied');
+            otherTabPosition.getElementsByClassName('position__name')[0].innerHTML =
                 currentModalWindowData.number;
         }
 

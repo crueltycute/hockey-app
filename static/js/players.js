@@ -1,82 +1,83 @@
-/* Захардкоженный массив игроков */
-let playersData = [
-    {   'name': 'Алексей Климкин',
-        'section': '',
-        'position': '',
-        'number': 13,
-    },
-    {   'name': 'Павел Башаринов',
-        'section': '',
-        'position': '',
-        'number': 21,
-    },
-    {   'name': 'Андрей Гардт',
-        'section': '',
-        'position': '',
-        'number': 3,
-    },
-    {   'name': 'Александр Горячев',
-        'section': '',
-        'position': '',
-        'number': 24,
-    },
-    {   'name': 'Алексей Захаров',
-        'section': '',
-        'position': '',
-        'number': 15,
-    },
-];
-
 /**
- * Функция создания html-элемента с данными игрока
+ * Класс игрока
  *
- * @param {Object} playerData - объект с данными об игроке: имя, секция, позиция, номер
- * @returns {Object}
- * */
-const createPlayer = function(playerData) {
-    let firstDiv = document.createElement('div');
-
-    let nameEl = document.createElement('div');
-    nameEl.classList.add('player__name');
-    nameEl.innerHTML = playerData.name;
-
-    firstDiv.appendChild(nameEl);
-
-    let sectionEl = document.createElement('div');
-    sectionEl.classList.add('player__section');
-    if (playerData.section) {
-        sectionEl.innerHTML = playerData.section;
+ * name - имя
+ * number - номер
+ * section - текущая секция (по умолчанию 1)
+ * position - текущая позиция на поле
+ **/
+class Player {
+    constructor(name, number, section=1, position='') {
+        this.name = name;
+        this.number = number;
+        this.section = section;
+        this.position = position;
     }
 
-    firstDiv.appendChild(sectionEl);
+    /* Метод создания DOM-элемента */
+    createPlayerBlock() {
+        let nameSectionAndPosition = document.createElement('div');
 
-    let positionEl = document.createElement('div');
-    positionEl.classList.add('player__position');
-    if (playerData.position) {
-        positionEl.innerHTML = playerData.position;
-    }
+        let name = document.createElement('div');
+        name.classList.add('player__name');
+        name.innerHTML = this.name;
 
-    firstDiv.appendChild(positionEl);
+        let section = document.createElement('div');
+        section.classList.add('player__section');
+        if (this.section) {
+            section.innerHTML = 'Звено ' + this.section;
+        }
 
-    let secondDiv = document.createElement('div');
+        let position = document.createElement('div');
+        position.classList.add('player__position');
+        if (this.position) {
+            switch (this.position) {
+                case 1:
+                    position.innerHTML = 'нападающий по центру';
+                    break;
+                case 2:
+                    position.innerHTML = 'нападающий слева';
+                    break;
+                case 3:
+                    position.innerHTML = 'нападающий справа';
+                    break;
+                case 4:
+                    position.innerHTML = 'защитник слева';
+                    break;
+                case 5:
+                    position.innerHTML = 'нападающий справа';
+                    break;
+            }
+        }
 
-    let numberEl = document.createElement('div');
-    numberEl.classList.add('player__number');
-    numberEl.innerHTML = playerData.number;
+        nameSectionAndPosition.append(name, section, position);
 
-    secondDiv.appendChild(numberEl);
+        let number = document.createElement('div');
+        number.classList.add('player__number');
+        number.innerHTML = this.number;
+        number.before(document.createElement('div'));
 
-    let playerEl = document.createElement('div');
-    playerEl.classList.add('player');
+        let player = document.createElement('div');
+        player.classList.add('player');
 
-    playerEl.appendChild(firstDiv);
-    playerEl.appendChild(secondDiv);
+        player.appendChild(nameSectionAndPosition);
+        player.appendChild(number);
 
-    return playerEl;
-};
+        return player;
+    };
+}
 
-let parentsBlock = document.getElementsByClassName('players')[0];
 
-playersData.forEach(playerData => {
-    parentsBlock.appendChild(createPlayer(playerData));
+/* Создание и вставка игроков на страницу */
+let playersMap = new Map();
+playersMap.set(13, new Player('Алексей Климкин', 13));
+playersMap.set(21, new Player('Павел Башаринов', 21));
+playersMap.set(3, new Player('Андрей Гардт', 3));
+playersMap.set(24, new Player('Александр Горячев', 24));
+playersMap.set(15, new Player('Алексей Захаров', 15));
+
+let playersBlock = document.getElementsByClassName('players')[0];
+
+playersMap.forEach(player => {
+    playersBlock.appendChild(player.createPlayerBlock());
 });
