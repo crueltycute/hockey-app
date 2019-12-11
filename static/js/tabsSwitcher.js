@@ -36,9 +36,9 @@ class Tab {
     }
 }
 
-let playersTab = new Tab(document.getElementsByClassName('tabs-name')[0],
+const playersTab = new Tab(document.getElementsByClassName('tabs-name')[0],
                         document.getElementById('tab-players'), true);
-let unitsTab = new Tab(document.getElementsByClassName('tabs-name')[1],
+const unitsTab = new Tab(document.getElementsByClassName('tabs-name')[1],
                         document.getElementById('tab-units'), false);
 
 playersTab.button.addEventListener('click', () => {

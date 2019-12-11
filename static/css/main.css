@@ -32,7 +32,18 @@ header {
     padding: 8px 20px;
 
     cursor: pointer;
+
+    font-size: 1em;
+
+    border: none;
+
+    color: white;
+    background: midnightblue;
 }
+
+    .tabs-name:focus {
+        outline: none;
+    }
 
     .tabs-name__focused, .tabs-name:hover {
         background-color: white;

@@ -1,5 +1,5 @@
 /* Массив позиций на поле */
-let positions = {
+const positions = {
     1: { isOccupied: false, name: 'нападающий по центру' },
     2: { isOccupied: false, name: 'нападающий слева' },
     3: { isOccupied: false, name: 'нападающий справа' },
@@ -42,19 +42,19 @@ class Player {
 
     /* Метод создания DOM-элемента */
     createPlayerBlock() {
-        let nameSectionAndPosition = document.createElement('div');
+        const nameSectionAndPosition = document.createElement('div');
 
-        let name = document.createElement('div');
+        const name = document.createElement('div');
         name.classList.add('player__name');
         name.innerHTML = this.name;
 
-        let section = document.createElement('div');
+        const section = document.createElement('div');
         section.classList.add('player__section');
         if (this.section) {
             section.innerHTML = 'Звено ' + this.section;
         }
 
-        let position = document.createElement('div');
+        const position = document.createElement('div');
         position.classList.add('player__position');
         if (this.position) {
             position.innerHTML = positions[this.position].name;
@@ -62,12 +62,12 @@ class Player {
 
         nameSectionAndPosition.append(name, section, position);
 
-        let number = document.createElement('div');
+        const number = document.createElement('div');
         number.classList.add('player__number');
         number.innerHTML = this.number;
         number.before(document.createElement('div'));
 
-        let player = document.createElement('div');
+        const player = document.createElement('div');
         player.classList.add('player');
 
         player.appendChild(nameSectionAndPosition);
@@ -78,7 +78,7 @@ class Player {
 }
 
 /* Создание и вставка игроков на страницу */
-let playersMap = new Map();
+const playersMap = new Map();
 
 (function initPlayers() {
     playersMap.set(13, new Player('Алексей Климкин', 13));
@@ -87,7 +87,7 @@ let playersMap = new Map();
     playersMap.set(24, new Player('Александр Горячев', 24));
     playersMap.set(15, new Player('Алексей Захаров', 15));
 
-    let playersBlock = document.getElementsByClassName('players')[0];
+    const playersBlock = document.getElementsByClassName('players')[0];
 
     playersMap.forEach(player => {
         playersBlock.appendChild(player.playerBlock);
@@ -100,18 +100,14 @@ const modalWindow = {
     modalBlock: document.getElementsByClassName('modal-background')[0],
     isVisible: false,
     updateVisibility: function () {
-        if (this.modalBlock.classList.contains('hidden')) {
-            this.modalBlock.classList.remove('hidden');
-        } else {
-            this.modalBlock.classList.add('hidden');
-        }
+        this.modalBlock.classList.toggle('hidden');
 
         this.isVisible = !this.isVisible;
     }
 };
 
 /* Объект с текущими данными об игроке для открытой модалки */
-let currentModalWindowData = {
+const currentModalWindowData = {
     name: null,
     section: 1,
     position: null,
@@ -205,8 +201,8 @@ const positionButtonCollection = document.getElementsByClassName('position_modal
                 positionButtonCollection[currentModalWindowData.position - 1].classList.add('position_occupied');
 
                 /* Добавление в секцию на другой вкладке */
-                let otherTabSection = document.getElementById('unit-' + currentModalWindowData.section);
-                let otherTabPosition = otherTabSection
+                const otherTabSection = document.getElementById('unit-' + currentModalWindowData.section);
+                const otherTabPosition = otherTabSection
                     .getElementsByClassName('position')[currentModalWindowData.position - 1];
 
                 otherTabPosition.classList.add('position_occupied');
@@ -215,7 +211,6 @@ const positionButtonCollection = document.getElementsByClassName('position_modal
             }
         }
 
-        console.log(playersMap.get(currentModalWindowData.number));
         currentModalWindowData.eraseData();
     });
 
